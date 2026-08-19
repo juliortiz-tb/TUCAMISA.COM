@@ -1,0 +1,3577 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+    <title>VIBRA — Merch & Events</title>
+    <!-- =====================================================
+         FUENTES
+    ====================================================== -->
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600;700;800;900&family=Permanent+Marker&display=swap"
+        rel="stylesheet">
+    <style>
+        /* =====================================================
+           RESET
+        ====================================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            background: #03040a;
+            color: white;
+            font-family:
+                "DM Sans",
+                sans-serif;
+            overflow-x: hidden;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        button,
+        input,
+        select {
+            font-family: inherit;
+        }
+        /* =====================================================
+           FONDO DE CONSTELACIONES
+        ====================================================== */
+        #constellationCanvas {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -10;
+            pointer-events: none;
+        }
+        /*
+         Capa oscura muy suave para que
+         el contenido siga siendo legible
+        */
+        body::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            z-index: -9;
+            pointer-events: none;
+            background:
+                radial-gradient(
+                    circle at 20% 20%,
+                    rgba(
+                        80,
+                        100,
+                        255,
+                        .08
+                    ),
+                    transparent 35%
+                ),
+                radial-gradient(
+                    circle at 80% 70%,
+                    rgba(
+                        215,
+                        255,
+                        0,
+                        .035
+                    ),
+                    transparent 35%
+                ),
+                linear-gradient(
+                    180deg,
+                    rgba(
+                        2,
+                        4,
+                        12,
+                        .72
+                    ),
+                    rgba(
+                        2,
+                        3,
+                        8,
+                        .9
+                    )
+                );
+        }
+        /* =====================================================
+           HEADER
+        ====================================================== */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 78px;
+            padding:
+                0 6%;
+            display: flex;
+            align-items: center;
+            justify-content:
+                space-between;
+            z-index: 1000;
+            background:
+                rgba(
+                    3,
+                    4,
+                    10,
+                    .62
+                );
+            backdrop-filter:
+                blur(18px);
+            border-bottom:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    .08
+                );
+        }
+        .logo {
+            font-family:
+                "Permanent Marker",
+                cursive;
+            font-size:
+                30px;
+            transform:
+                rotate(-3deg);
+        }
+        .logo span {
+            color:
+                #d7ff00;
+        }
+        nav {
+            display:
+                flex;
+            gap:
+                28px;
+            font-size:
+                14px;
+            font-weight:
+                800;
+        }
+        nav a {
+            transition:
+                .3s;
+        }
+        nav a:hover {
+            color:
+                #d7ff00;
+        }
+        .header-button {
+            background:
+                #d7ff00;
+            color:
+                #000;
+            border:
+                none;
+            border-radius:
+                50px;
+            padding:
+                12px 20px;
+            font-weight:
+                900;
+            cursor:
+                pointer;
+            transition:
+                .3s;
+        }
+        .header-button:hover {
+            transform:
+                scale(1.08)
+                rotate(-2deg);
+        }
+        /* =====================================================
+           HERO
+        ====================================================== */
+        .hero {
+            min-height:
+                100vh;
+            padding:
+                140px 7%
+                80px;
+            position:
+                relative;
+            display:
+                flex;
+            align-items:
+                center;
+            overflow:
+                hidden;
+        }
+        .hero::before {
+            content:
+                "";
+            position:
+                absolute;
+            width:
+                600px;
+            height:
+                600px;
+            background:
+                #d7ff00;
+            border-radius:
+                50%;
+            filter:
+                blur(220px);
+            opacity:
+                .07;
+            right:
+                -300px;
+            top:
+                100px;
+        }
+        .hero-content {
+            position:
+                relative;
+            z-index:
+                5;
+            width:
+                100%;
+            max-width:
+                1400px;
+        }
+        .hero-tag {
+            display:
+                inline-block;
+            background:
+                #d7ff00;
+            color:
+                #000;
+            padding:
+                9px 15px;
+            font-size:
+                11px;
+            font-weight:
+                900;
+            transform:
+                rotate(-2deg);
+            margin-bottom:
+                25px;
+        }
+        .hero h1 {
+            font-family:
+                "Bebas Neue";
+            font-size:
+                clamp(
+                    90px,
+                    16vw,
+                    260px
+                );
+            line-height:
+                .76;
+            letter-spacing:
+                -3px;
+            width:
+                100%;
+            text-shadow:
+                0 10px 40px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    .5
+                );
+        }
+        .hero h1 span {
+            display:
+                block;
+            color:
+                #d7ff00;
+            text-shadow:
+                6px 6px 0
+                rgba(
+                    255,
+                    255,
+                    255,
+                    .03
+                );
+        }
+        .hero-subtitle {
+            margin-top:
+                35px;
+            max-width:
+                550px;
+            font-size:
+                18px;
+            line-height:
+                1.6;
+            color:
+                #b8b8b8;
+        }
+        .hero-buttons {
+            margin-top:
+                35px;
+            display:
+                flex;
+            gap:
+                15px;
+            flex-wrap:
+                wrap;
+        }
+        .main-button {
+            background:
+                #d7ff00;
+            color:
+                #000;
+            padding:
+                16px 28px;
+            border-radius:
+                40px;
+            font-weight:
+                900;
+            cursor:
+                pointer;
+            border:
+                none;
+            transition:
+                .3s;
+        }
+        .main-button:hover {
+            transform:
+                translateY(-5px);
+        }
+        .secondary-button {
+            border:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    .25
+                );
+            padding:
+                16px 28px;
+            border-radius:
+                40px;
+            font-weight:
+                800;
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    .03
+                );
+            backdrop-filter:
+                blur(8px);
+        }
+        .secondary-button:hover {
+            border-color:
+                #d7ff00;
+            color:
+                #d7ff00;
+        }
+        /* =====================================================
+           MARQUEE
+        ====================================================== */
+        .marquee {
+            width:
+                105%;
+            margin-left:
+                -2%;
+            overflow:
+                hidden;
+            background:
+                #d7ff00;
+            color:
+                #000;
+            transform:
+                rotate(-2deg);
+            padding:
+                15px 0;
+            white-space:
+                nowrap;
+            box-shadow:
+                0 0 40px
+                rgba(
+                    215,
+                    255,
+                    0,
+                    .08
+                );
+        }
+        .marquee-track {
+            display:
+                inline-block;
+            animation:
+                marquee
+                22s
+                linear
+                infinite;
+            font-family:
+                "Bebas Neue";
+            font-size:
+                32px;
+            letter-spacing:
+                2px;
+        }
+        @keyframes marquee {
+            from {
+                transform:
+                    translateX(0);
+            }
+            to {
+                transform:
+                    translateX(-50%);
+            }
+        }
+        /* =====================================================
+           EVENTOS
+        ====================================================== */
+        .events {
+            padding:
+                130px 0 90px;
+            overflow:
+                hidden;
+        }
+        .section-title {
+            padding:
+                0 7%;
+            margin-bottom:
+                45px;
+        }
+        .section-title small {
+            color:
+                #d7ff00;
+            font-size:
+                12px;
+            font-weight:
+                900;
+            letter-spacing:
+                2px;
+        }
+        .section-title h2 {
+            font-family:
+                "Bebas Neue";
+            font-size:
+                clamp(
+                    70px,
+                    9vw,
+                    120px
+                );
+            line-height:
+                .8;
+            margin-top:
+                10px;
+        }
+        .section-title p {
+            color:
+                #858585;
+            margin-top:
+                20px;
+            max-width:
+                550px;
+            line-height:
+                1.6;
+        }
+        /* =====================================================
+           CARRUSEL
+        ====================================================== */
+        .events-slider {
+            width:
+                100%;
+            overflow:
+                hidden;
+            position:
+                relative;
+            padding-bottom:
+                65px;
+        }
+        .events-track {
+            display:
+                flex;
+            gap:
+                18px;
+            width:
+                max-content;
+            transform:
+                translateX(0);
+            transition:
+                transform
+                .65s
+                cubic-bezier(
+                    .22,
+                    .61,
+                    .36,
+                    1
+                );
+            cursor:
+                grab;
+        }
+        .events-track:active {
+            cursor:
+                grabbing;
+        }
+        .event-card {
+            width:
+                310px;
+            height:
+                430px;
+            border-radius:
+                20px;
+            overflow:
+                hidden;
+            position:
+                relative;
+            flex-shrink:
+                0;
+            background:
+                rgba(
+                    20,
+                    20,
+                    25,
+                    .75
+                );
+            border:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    .1
+                );
+            cursor:
+                pointer;
+            transition:
+                .4s;
+            backdrop-filter:
+                blur(8px);
+        }
+        .event-card:hover {
+            transform:
+                translateY(-12px)
+                rotate(-1deg);
+            border-color:
+                #d7ff00;
+            box-shadow:
+                0 20px 70px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    .5
+                );
+        }
+        .event-image {
+            position:
+                absolute;
+            inset:
+                0;
+            background-size:
+                cover;
+            background-position:
+                center;
+            transition:
+                .7s;
+        }
+        .event-card:hover
+        .event-image {
+            transform:
+                scale(1.1);
+        }
+        .event-gradient {
+            position:
+                absolute;
+            inset:
+                0;
+            background:
+                linear-gradient(
+                    transparent 20%,
+                    rgba(
+                        0,
+                        0,
+                        0,
+                        .95
+                    )
+                );
+        }
+        .event-info {
+            position:
+                absolute;
+            bottom:
+                0;
+            left:
+                0;
+            padding:
+                25px;
+            z-index:
+                3;
+        }
+        .event-label {
+            display:
+                inline-block;
+            background:
+                #d7ff00;
+            color:
+                #000;
+            padding:
+                6px 9px;
+            font-size:
+                10px;
+            font-weight:
+                900;
+            margin-bottom:
+                12px;
+        }
+        .event-info h3 {
+            font-family:
+                "Bebas Neue";
+            font-size:
+                48px;
+            line-height:
+                .85;
+        }
+        .event-info p {
+            color:
+                #aaa;
+            margin-top:
+                10px;
+            font-size:
+                13px;
+        }
+        .event-link {
+            display:
+                inline-block;
+            margin-top:
+                18px;
+            border:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    .25
+                );
+            border-radius:
+                30px;
+            padding:
+                9px 15px;
+            font-size:
+                11px;
+            font-weight:
+                900;
+            background:
+                rgba(
+                    0,
+                    0,
+                    0,
+                    .25
+                );
+        }
+        /* =====================================================
+           BOTONES CARRUSEL
+        ====================================================== */
+        .carousel-btn {
+            position:
+                absolute;
+            top:
+                45%;
+            transform:
+                translateY(-50%);
+            width:
+                55px;
+            height:
+                55px;
+            border-radius:
+                50%;
+            border:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    .25
+                );
+            background:
+                rgba(
+                    0,
+                    0,
+                    0,
+                    .8
+                );
+            color:
+                white;
+            font-size:
+                28px;
+            z-index:
+                20;
+            cursor:
+                pointer;
+            display:
+                flex;
+            align-items:
+                center;
+            justify-content:
+                center;
+            transition:
+                .3s;
+            backdrop-filter:
+                blur(10px);
+        }
+        .carousel-btn:hover {
+            background:
+                #d7ff00;
+            color:
+                #000;
+            border-color:
+                #d7ff00;
+            transform:
+                translateY(-50%)
+                scale(1.1);
+        }
+        .carousel-prev {
+            left:
+                20px;
+        }
+        .carousel-next {
+            right:
+                20px;
+        }
+        /* =====================================================
+           INDICADORES
+        ====================================================== */
+        .carousel-indicators {
+            position:
+                absolute;
+            bottom:
+                12px;
+            left:
+                50%;
+            transform:
+                translateX(-50%);
+            display:
+                flex;
+            align-items:
+                center;
+            gap:
+                8px;
+            z-index:
+                20;
+        }
+        .indicator {
+            width:
+                8px;
+            height:
+                8px;
+            border-radius:
+                50%;
+            border:
+                none;
+            background:
+                #444;
+            cursor:
+                pointer;
+            transition:
+                .3s;
+            padding:
+                0;
+        }
+        .indicator.active {
+            width:
+                30px;
+            border-radius:
+                10px;
+            background:
+                #d7ff00;
+            box-shadow:
+                0 0 15px
+                rgba(
+                    215,
+                    255,
+                    0,
+                    .5
+                );
+        }
+        .indicator:hover {
+            background:
+                #d7ff00;
+        }
+        .carousel-counter {
+            position:
+                absolute;
+            bottom:
+                8px;
+            right:
+                7%;
+            color:
+                #666;
+            font-size:
+                12px;
+            font-weight:
+                800;
+        }
+        .carousel-counter span {
+            color:
+                #d7ff00;
+        }
+        /* =====================================================
+           DROPS
+        ====================================================== */
+        #drops {
+            padding:
+                100px 7%
+                120px;
+            background:
+                rgba(
+                    3,
+                    4,
+                    10,
+                    .45
+                );
+            border-top:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    .05
+                );
+            border-bottom:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    .05
+                );
+        }
+        .drops-header {
+            display:
+                flex;
+            justify-content:
+                space-between;
+            align-items:
+                end;
+            margin-bottom:
+                40px;
+        }
+        .drops-header h2 {
+            font-family:
+                "Bebas Neue";
+            font-size:
+                clamp(
+                    70px,
+                    9vw,
+                    120px
+                );
+            line-height:
+                .8;
+        }
+        .drops-header p {
+            max-width:
+                300px;
+            color:
+                #777;
+            text-align:
+                right;
+            line-height:
+                1.5;
+        }
+        /* =====================================================
+           PRODUCTOS
+        ====================================================== */
+        .products-slider {
+            overflow:
+                hidden;
+            width:
+                100%;
+            position:
+                relative;
+            padding-bottom:
+                60px;
+        }
+        .products-track {
+            display:
+                flex;
+            gap:
+                20px;
+            width:
+                max-content;
+            transform:
+                translateX(0);
+            transition:
+                transform
+                .65s
+                cubic-bezier(
+                    .22,
+                    .61,
+                    .36,
+                    1
+                );
+            cursor:
+                grab;
+        }
+        .products-track:active {
+            cursor:
+                grabbing;
+        }
+        .product-card {
+            width:
+                290px;
+            background:
+                rgba(
+                    18,
+                    18,
+                    23,
+                    .82
+                );
+            border-radius:
+                16px;
+            overflow:
+                hidden;
+            flex-shrink:
+                0;
+            border:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    .1
+                );
+            transition:
+                .4s;
+            backdrop-filter:
+                blur(8px);
+        }
+        .product-card:hover {
+            transform:
+                translateY(-8px);
+            border-color:
+                #d7ff00;
+        }
+        .product-photo {
+            height:
+                340px;
+            overflow:
+                hidden;
+            background:
+                #222;
+        }
+        .product-photo img {
+            width:
+                100%;
+            height:
+                100%;
+            object-fit:
+                cover;
+            transition:
+                .6s;
+        }
+        .product-card:hover
+        .product-photo img {
+            transform:
+                scale(1.08);
+        }
+        .product-details {
+            padding:
+                20px;
+        }
+        .product-event {
+            color:
+                #d7ff00;
+            font-size:
+                10px;
+            font-weight:
+                900;
+            letter-spacing:
+                1px;
+        }
+        .product-details h3 {
+            margin-top:
+                7px;
+            font-size:
+                17px;
+        }
+        .price {
+            margin-top:
+                12px;
+            font-size:
+                21px;
+            font-weight:
+                900;
+        }
+        .buy {
+            width:
+                100%;
+            margin-top:
+                15px;
+            padding:
+                13px;
+            background:
+                #d7ff00;
+            color:
+                #000;
+            border:
+                none;
+            border-radius:
+                8px;
+            font-weight:
+                900;
+            cursor:
+                pointer;
+        }
+        /* =====================================================
+           COMPRA
+        ====================================================== */
+        .purchase {
+            padding:
+                120px 7%;
+            background:
+                rgba(
+                    3,
+                    4,
+                    10,
+                    .5
+                );
+        }
+        .purchase-container {
+            max-width:
+                900px;
+            margin:
+                auto;
+            border:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    .1
+                );
+            background:
+                rgba(
+                    15,
+                    15,
+                    20,
+                    .8
+                );
+            border-radius:
+                25px;
+            padding:
+                45px;
+            backdrop-filter:
+                blur(15px);
+            box-shadow:
+                0 30px 100px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    .4
+                );
+        }
+        .purchase-title {
+            text-align:
+                center;
+            margin-bottom:
+                40px;
+        }
+        .purchase-title h2 {
+            font-family:
+                "Bebas Neue";
+            font-size:
+                70px;
+            line-height:
+                .8;
+        }
+        .purchase-title span {
+            color:
+                #d7ff00;
+        }
+        .purchase-title p {
+            color:
+                #777;
+            margin-top:
+                15px;
+        }
+        .form-grid {
+            display:
+                grid;
+            grid-template-columns:
+                1fr 1fr;
+            gap:
+                20px;
+        }
+        .field {
+            display:
+                flex;
+            flex-direction:
+                column;
+            gap:
+                8px;
+        }
+        .field.full {
+            grid-column:
+                span 2;
+        }
+        .field label {
+            font-size:
+                12px;
+            color:
+                #aaa;
+            font-weight:
+                800;
+        }
+        .field input,
+        .field select {
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    .04
+                );
+            border:
+                1px solid
+                #333;
+            color:
+                white;
+            padding:
+                14px;
+            border-radius:
+                8px;
+            outline:
+                none;
+        }
+        .field select option {
+            background:
+                #111;
+            color:
+                white;
+        }
+        .field input:focus,
+        .field select:focus {
+            border-color:
+                #d7ff00;
+            box-shadow:
+                0 0 15px
+                rgba(
+                    215,
+                    255,
+                    0,
+                    .08
+                );
+        }
+        .payment {
+            display:
+                grid;
+            grid-template-columns:
+                1fr 1fr;
+            gap:
+                12px;
+        }
+        .payment-option {
+            border:
+                1px solid
+                #333;
+            border-radius:
+                10px;
+            padding:
+                15px;
+            cursor:
+                pointer;
+            transition:
+                .3s;
+        }
+        .payment-option:hover {
+            border-color:
+                #d7ff00;
+        }
+        .payment-option input {
+            accent-color:
+                #d7ff00;
+        }
+        .payment-option strong {
+            display:
+                block;
+            margin-top:
+                5px;
+        }
+        .payment-option small {
+            color:
+                #777;
+        }
+        .submit-order {
+            width:
+                100%;
+            margin-top:
+                30px;
+            padding:
+                17px;
+            border:
+                none;
+            border-radius:
+                10px;
+            background:
+                #d7ff00;
+            color:
+                #000;
+            font-weight:
+                900;
+            font-size:
+                15px;
+            cursor:
+                pointer;
+            transition:
+                .3s;
+        }
+        .submit-order:hover {
+            transform:
+                translateY(-3px);
+            box-shadow:
+                0 10px 35px
+                rgba(
+                    215,
+                    255,
+                    0,
+                    .15
+                );
+        }
+        /* =====================================================
+           FOOTER
+        ====================================================== */
+        footer {
+            border-top:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    .08
+                );
+            padding:
+                70px 7%
+                30px;
+            background:
+                rgba(
+                    2,
+                    3,
+                    8,
+                    .65
+                );
+        }
+        .footer-logo {
+            font-family:
+                "Permanent Marker";
+            font-size:
+                80px;
+        }
+        .footer-logo span {
+            color:
+                #d7ff00;
+        }
+        .footer-bottom {
+            margin-top:
+                50px;
+            color:
+                #555;
+            font-size:
+                12px;
+        }
+        /* =====================================================
+           RESPONSIVE
+        ====================================================== */
+        @media(max-width:900px) {
+            nav {
+                display:
+                    none;
+            }
+        }
+        @media(max-width:650px) {
+            header {
+                height:
+                    65px;
+                padding:
+                    0 5%;
+            }
+            .logo {
+                font-size:
+                    25px;
+            }
+            .header-button {
+                padding:
+                    9px 13px;
+                font-size:
+                    10px;
+            }
+            .hero {
+                padding:
+                    120px 5%
+                    70px;
+                min-height:
+                    820px;
+            }
+            .hero h1 {
+                font-size:
+                    95px;
+            }
+            .hero-subtitle {
+                font-size:
+                    15px;
+            }
+            .section-title,
+            #drops,
+            .purchase {
+                padding-left:
+                    5%;
+                padding-right:
+                    5%;
+            }
+            .section-title h2,
+            .drops-header h2 {
+                font-size:
+                    70px;
+            }
+            .carousel-btn {
+                width:
+                    42px;
+                height:
+                    42px;
+                font-size:
+                    20px;
+            }
+            .carousel-prev {
+                left:
+                    8px;
+            }
+            .carousel-next {
+                right:
+                    8px;
+            }
+            .carousel-counter {
+                right:
+                    5%;
+            }
+            .drops-header {
+                display:
+                    block;
+            }
+            .drops-header p {
+                text-align:
+                    left;
+                margin-top:
+                    20px;
+            }
+            .purchase-container {
+                padding:
+                    25px 18px;
+            }
+            .purchase-title h2 {
+                font-size:
+                    60px;
+            }
+            .form-grid {
+                grid-template-columns:
+                    1fr;
+            }
+            .field.full {
+                grid-column:
+                    span 1;
+            }
+            .payment {
+                grid-template-columns:
+                    1fr;
+            }
+            .footer-logo {
+                font-size:
+                    60px;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- =====================================================
+     CANVAS DE CONSTELACIONES
+====================================================== -->
+<canvas
+    id="constellationCanvas">
+</canvas>
+<!-- =====================================================
+     HEADER
+====================================================== -->
+<header>
+    <a
+        href="#"
+        class="logo">
+        VIBR<span>A</span>
+    </a>
+    <nav>
+        <a href="#eventos">
+            EVENTOS
+        </a>
+        <a href="#drops">
+            DROPS
+        </a>
+        <a href="#comprar">
+            COMPRAR
+        </a>
+    </nav>
+    <button
+        class="header-button"
+        onclick="scrollComprar()">
+        🛒 MI PEDIDO
+    </button>
+</header>
+<!-- =====================================================
+     HERO
+====================================================== -->
+<section class="hero">
+    <div class="hero-content">
+        <div class="hero-tag">
+            MERCH · EVENTOS · EXPERIENCIAS
+        </div>
+        <h1>
+            VIVE
+            <span>
+                EL EVENTO.
+            </span>
+        </h1>
+        <p class="hero-subtitle">
+            Las camisetas que convierten
+            una noche increíble en un recuerdo
+            que puedes volver a usar.
+        </p>
+        <div class="hero-buttons">
+            <a
+                href="#eventos"
+                class="main-button">
+                VER EVENTOS →
+            </a>
+            <a
+                href="#drops"
+                class="secondary-button">
+                VER CAMISETAS
+            </a>
+        </div>
+    </div>
+</section>
+<!-- =====================================================
+     MARQUEE
+====================================================== -->
+<div class="marquee">
+    <div class="marquee-track">
+        MÚSICA · EVENTOS · STREETWEAR · EXPERIENCIAS ·
+        MÚSICA · EVENTOS · STREETWEAR · EXPERIENCIAS ·
+        MÚSICA · EVENTOS · STREETWEAR · EXPERIENCIAS ·
+    </div>
+</div>
+<!-- =====================================================
+     EVENTOS
+====================================================== -->
+<section
+    class="events"
+    id="eventos">
+    <div class="section-title">
+        <small>
+            ¿QUÉ ESTÁ PASANDO?
+        </small>
+        <h2>
+            PRÓXIMOS<br>
+            EVENTOS
+        </h2>
+        <p>
+            Encuentra la camiseta
+            del evento que quieres
+            recordar.
+        </p>
+    </div>
+    <div class="events-slider">
+        <button
+            class="carousel-btn carousel-prev"
+            onclick="moverEventos(-1)">
+            &#10094;
+        </button>
+        <div
+            class="events-track"
+            id="eventsTrack">
+            <!-- BTS -->
+            <div
+                class="event-card"
+                onclick="scrollComprar()">
+                <div
+                    class="event-image"
+                    style="
+                    background-image:
+                    url('https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=900&q=85');
+                    ">
+                </div>
+                <div class="event-gradient"></div>
+                <div class="event-info">
+                    <span class="event-label">
+                        DESTACADO
+                    </span>
+                    <h3>
+                        BTS<br>
+                        WORLD TOUR
+                    </h3>
+                    <p>
+                        Bogotá · 2026
+                    </p>
+                    <span class="event-link">
+                        VER MERCH →
+                    </span>
+                </div>
+            </div>
+            <!-- RYAN CASTRO -->
+            <div class="event-card">
+                <div
+                    class="event-image"
+                    style="
+                    background-image:
+                    url('https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=900&q=85');
+                    ">
+                </div>
+                <div class="event-gradient"></div>
+                <div class="event-info">
+                    <span class="event-label">
+                        EVENTO
+                    </span>
+                    <h3>
+                        RYAN<br>
+                        CASTRO
+                    </h3>
+                    <p>
+                        Awooween · Bogotá
+                    </p>
+                    <span class="event-link">
+                        PRÓXIMAMENTE
+                    </span>
+                </div>
+            </div>
+            <!-- MYKE TOWERS -->
+            <div class="event-card">
+                <div
+                    class="event-image"
+                    style="
+                    background-image:
+                    url('https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=900&q=85');
+                    ">
+                </div>
+                <div class="event-gradient"></div>
+                <div class="event-info">
+                    <span class="event-label">
+                        LIVE
+                    </span>
+                    <h3>
+                        MYKE<br>
+                        TOWERS
+                    </h3>
+                    <p>
+                        Colombia · 2026
+                    </p>
+                    <span class="event-link">
+                        PRÓXIMAMENTE
+                    </span>
+                </div>
+            </div>
+            <!-- LENNY -->
+            <div class="event-card">
+                <div
+                    class="event-image"
+                    style="
+                    background-image:
+                    url('https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?auto=format&fit=crop&w=900&q=85');
+                    ">
+                </div>
+                <div class="event-gradient"></div>
+                <div class="event-info">
+                    <span class="event-label">
+                        TOUR
+                    </span>
+                    <h3>
+                        LENNY<br>
+                        TAVÁREZ
+                    </h3>
+                    <p>
+                        J. Quiles · 2026
+                    </p>
+                    <span class="event-link">
+                        PRÓXIMAMENTE
+                    </span>
+                </div>
+            </div>
+            <!-- BAD GYAL -->
+            <div class="event-card">
+                <div
+                    class="event-image"
+                    style="
+                    background-image:
+                    url('https://images.unsplash.com/photo-1524368535928-5b5e00ddc76b?auto=format&fit=crop&w=900&q=85');
+                    ">
+                </div>
+                <div class="event-gradient"></div>
+                <div class="event-info">
+                    <span class="event-label">
+                        WORLD TOUR
+                    </span>
+                    <h3>
+                        BAD GYAL
+                    </h3>
+                    <p>
+                        MÁS CARA · 2026
+                    </p>
+                    <span class="event-link">
+                        PRÓXIMAMENTE
+                    </span>
+                </div>
+            </div>
+            <!-- CRIS MJ -->
+            <div class="event-card">
+                <div
+                    class="event-image"
+                    style="
+                    background-image:
+                    url('https://images.unsplash.com/photo-1506157786151-b8491531f063?auto=format&fit=crop&w=900&q=85');
+                    ">
+                </div>
+                <div class="event-gradient"></div>
+                <div class="event-info">
+                    <span class="event-label">
+                        BOGOTÁ
+                    </span>
+                    <h3>
+                        CRIS<br>
+                        MJ
+                    </h3>
+                    <p>
+                        Bogotá · 2026
+                    </p>
+                    <span class="event-link">
+                        PRÓXIMAMENTE
+                    </span>
+                </div>
+            </div>
+            <!-- JUANES -->
+            <div class="event-card">
+                <div
+                    class="event-image"
+                    style="
+                    background-image:
+                    url('https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=900&q=85');
+                    ">
+                </div>
+                <div class="event-gradient"></div>
+                <div class="event-info">
+                    <span class="event-label">
+                        WORLD TOUR
+                    </span>
+                    <h3>
+                        JUANES
+                    </h3>
+                    <p>
+                        World Tour 2026
+                    </p>
+                    <span class="event-link">
+                        PRÓXIMAMENTE
+                    </span>
+                </div>
+            </div>
+            <!-- PISO 21 -->
+            <div class="event-card">
+                <div
+                    class="event-image"
+                    style="
+                    background-image:
+                    url('https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=900&q=85');
+                    ">
+                </div>
+                <div class="event-gradient"></div>
+                <div class="event-info">
+                    <span class="event-label">
+                        LIVE
+                    </span>
+                    <h3>
+                        PISO 21
+                    </h3>
+                    <p>
+                        + Juan Duque
+                    </p>
+                    <span class="event-link">
+                        PRÓXIMAMENTE
+                    </span>
+                </div>
+            </div>
+            <!-- MARTIN GARRIX -->
+            <div class="event-card">
+                <div
+                    class="event-image"
+                    style="
+                    background-image:
+                    url('https://images.unsplash.com/photo-1571266028243-d220c9c3b75d?auto=format&fit=crop&w=900&q=85');
+                    ">
+                </div>
+                <div class="event-gradient"></div>
+                <div class="event-info">
+                    <span class="event-label">
+                        AMERICAS TOUR
+                    </span>
+                    <h3>
+                        MARTIN<br>
+                        GARRIX
+                    </h3>
+                    <p>
+                        2026
+                    </p>
+                    <span class="event-link">
+                        PRÓXIMAMENTE
+                    </span>
+                </div>
+            </div>
+            <!-- CAMILO -->
+            <div class="event-card">
+                <div
+                    class="event-image"
+                    style="
+                    background-image:
+                    url('https://images.unsplash.com/photo-1524368535928-5b5e00ddc76b?auto=format&fit=crop&w=900&q=85');
+                    ">
+                </div>
+                <div class="event-gradient"></div>
+                <div class="event-info">
+                    <span class="event-label">
+                        TOUR 2026
+                    </span>
+                    <h3>
+                        CAMILO
+                    </h3>
+                    <p>
+                        Tour 2026
+                    </p>
+                    <span class="event-link">
+                        PRÓXIMAMENTE
+                    </span>
+                </div>
+            </div>
+        </div>
+        <button
+            class="carousel-btn carousel-next"
+            onclick="moverEventos(1)">
+            &#10095;
+        </button>
+        <div
+            class="carousel-indicators"
+            id="eventIndicators">
+            <button
+                class="indicator active"
+                onclick="irEvento(0)">
+            </button>
+            <button
+                class="indicator"
+                onclick="irEvento(1)">
+            </button>
+            <button
+                class="indicator"
+                onclick="irEvento(2)">
+            </button>
+            <button
+                class="indicator"
+                onclick="irEvento(3)">
+            </button>
+            <button
+                class="indicator"
+                onclick="irEvento(4)">
+            </button>
+            <button
+                class="indicator"
+                onclick="irEvento(5)">
+            </button>
+            <button
+                class="indicator"
+                onclick="irEvento(6)">
+            </button>
+            <button
+                class="indicator"
+                onclick="irEvento(7)">
+            </button>
+            <button
+                class="indicator"
+                onclick="irEvento(8)">
+            </button>
+            <button
+                class="indicator"
+                onclick="irEvento(9)">
+            </button>
+        </div>
+        <div class="carousel-counter">
+            <span id="currentEvent">
+                01
+            </span>
+            /
+            10
+        </div>
+    </div>
+</section>
+<!-- =====================================================
+     DROPS
+====================================================== -->
+<section id="drops">
+    <div class="drops-header">
+        <h2>
+            ÚLTIMOS<br>
+            DROPS
+        </h2>
+        <p>
+            Diseños exclusivos
+            para los eventos que
+            están haciendo historia.
+        </p>
+    </div>
+    <div class="products-slider">
+        <button
+            class="carousel-btn carousel-prev"
+            onclick="moverProductos(-1)">
+            &#10094;
+        </button>
+        <div
+            class="products-track"
+            id="productsTrack">
+            <!-- PRODUCTO 1 -->
+            <article class="product-card">
+                <div class="product-photo">
+                    <img
+                        src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=800&q=85"
+                        alt="Camiseta BTS">
+                </div>
+                <div class="product-details">
+                    <div class="product-event">
+                        BTS WORLD TOUR
+                    </div>
+                    <h3>
+                        Official Black Tee
+                    </h3>
+                    <div class="price">
+                        $89.900
+                    </div>
+                    <button
+                        class="buy"
+                        onclick="
+                        seleccionarProducto(
+                        'BTS World Tour - Black Tee',
+                        89900
+                        )">
+                        COMPRAR →
+                    </button>
+                </div>
+            </article>
+            <!-- PRODUCTO 2 -->
+            <article class="product-card">
+                <div class="product-photo">
+                    <img
+                        src="https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?auto=format&fit=crop&w=800&q=85"
+                        alt="Camiseta blanca">
+                </div>
+                <div class="product-details">
+                    <div class="product-event">
+                        BTS WORLD TOUR
+                    </div>
+                    <h3>
+                        White Edition
+                    </h3>
+                    <div class="price">
+                        $94.900
+                    </div>
+                    <button
+                        class="buy"
+                        onclick="
+                        seleccionarProducto(
+                        'BTS World Tour - White Edition',
+                        94900
+                        )">
+                        COMPRAR →
+                    </button>
+                </div>
+            </article>
+            <!-- PRODUCTO 3 -->
+            <article class="product-card">
+                <div class="product-photo">
+                    <img
+                        src="https://images.unsplash.com/photo-1562157873-818bc0726f68?auto=format&fit=crop&w=800&q=85"
+                        alt="Camiseta oversized">
+                </div>
+                <div class="product-details">
+                    <div class="product-event">
+                        BTS WORLD TOUR
+                    </div>
+                    <h3>
+                        Oversized Edition
+                    </h3>
+                    <div class="price">
+                        $109.900
+                    </div>
+                    <button
+                        class="buy"
+                        onclick="
+                        seleccionarProducto(
+                        'BTS World Tour - Oversized',
+                        109900
+                        )">
+                        COMPRAR →
+                    </button>
+                </div>
+            </article>
+            <!-- PRODUCTO 4 -->
+            <article class="product-card">
+                <div class="product-photo">
+                    <img
+                        src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=800&q=85"
+                        alt="Camiseta mujer">
+                </div>
+                <div class="product-details">
+                    <div class="product-event">
+                        BTS WORLD TOUR
+                    </div>
+                    <h3>
+                        Women's Edition
+                    </h3>
+                    <div class="price">
+                        $84.900
+                    </div>
+                    <button
+                        class="buy"
+                        onclick="
+                        seleccionarProducto(
+                        'BTS World Tour - Women',
+                        84900
+                        )">
+                        COMPRAR →
+                    </button>
+                </div>
+            </article>
+        </div>
+        <button
+            class="carousel-btn carousel-next"
+            onclick="moverProductos(1)">
+            &#10095;
+        </button>
+        <div
+            class="carousel-indicators"
+            id="productIndicators">
+            <button
+                class="indicator active"
+                onclick="irProducto(0)">
+            </button>
+            <button
+                class="indicator"
+                onclick="irProducto(1)">
+            </button>
+            <button
+                class="indicator"
+                onclick="irProducto(2)">
+            </button>
+            <button
+                class="indicator"
+                onclick="irProducto(3)">
+            </button>
+        </div>
+        <div class="carousel-counter">
+            <span id="currentProduct">
+                01
+            </span>
+            /
+            04
+        </div>
+    </div>
+</section>
+<!-- =====================================================
+     COMPRA
+====================================================== -->
+<section
+    class="purchase"
+    id="comprar">
+    <div class="purchase-container">
+        <div class="purchase-title">
+            <h2>
+                TU
+                <span>
+                    CAMISETA.
+                </span>
+            </h2>
+            <p>
+                Completa tus datos
+                y te enviamos el pedido
+                por WhatsApp.
+            </p>
+        </div>
+        <form
+            id="orderForm">
+            <div class="form-grid">
+                <!-- PRODUCTO -->
+                <div class="field full">
+                    <label>
+                        PRODUCTO
+                    </label>
+                    <input
+                        type="text"
+                        id="producto"
+                        placeholder="Selecciona una camiseta"
+                        required>
+                </div>
+                <!-- GENERO -->
+                <div class="field">
+                    <label>
+                        ¿PARA QUIÉN?
+                    </label>
+                    <select
+                        id="genero"
+                        required>
+                        <option value="">
+                            Seleccionar
+                        </option>
+                        <option>
+                            Hombre
+                        </option>
+                        <option>
+                            Mujer
+                        </option>
+                    </select>
+                </div>
+                <!-- TALLA -->
+                <div class="field">
+                    <label>
+                        TALLA
+                    </label>
+                    <select
+                        id="talla"
+                        required>
+                        <option value="">
+                            Seleccionar
+                        </option>
+                        <option>
+                            XS
+                        </option>
+                        <option>
+                            S
+                        </option>
+                        <option>
+                            M
+                        </option>
+                        <option>
+                            L
+                        </option>
+                        <option>
+                            XL
+                        </option>
+                        <option>
+                            XXL
+                        </option>
+                    </select>
+                </div>
+                <!-- NOMBRE -->
+                <div class="field">
+                    <label>
+                        NOMBRE
+                    </label>
+                    <input
+                        type="text"
+                        id="nombre"
+                        placeholder="Tu nombre"
+                        required>
+                </div>
+                <!-- TELEFONO -->
+                <div class="field">
+                    <label>
+                        TELÉFONO
+                    </label>
+                    <input
+                        type="tel"
+                        id="telefono"
+                        placeholder="300 000 0000"
+                        required>
+                </div>
+                <!-- CIUDAD -->
+                <div class="field">
+                    <label>
+                        CIUDAD
+                    </label>
+                    <input
+                        type="text"
+                        id="ciudad"
+                        placeholder="Bogotá"
+                        required>
+                </div>
+                <!-- DIRECCION -->
+                <div class="field">
+                    <label>
+                        DIRECCIÓN DE ENVÍO
+                    </label>
+                    <input
+                        type="text"
+                        id="direccion"
+                        placeholder="Calle / Carrera / Número"
+                        required>
+                </div>
+                <!-- PAGO -->
+                <div class="field full">
+                    <label>
+                        MÉTODO DE PAGO
+                    </label>
+                    <div class="payment">
+                        <label
+                            class="payment-option">
+                            <input
+                                type="radio"
+                                name="pago"
+                                value="Pago anticipado"
+                                required>
+                            <strong>
+                                💳 Pago anticipado
+                            </strong>
+                            <small>
+                                Pagas antes de recibir.
+                            </small>
+                        </label>
+                        <label
+                            class="payment-option">
+                            <input
+                                type="radio"
+                                name="pago"
+                                value="Pago contraentrega">
+                            <strong>
+                                💵 Contraentrega
+                            </strong>
+                            <small>
+                                Pagas cuando recibes.
+                            </small>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <button
+                type="submit"
+                class="submit-order">
+                📲 ENVIAR PEDIDO POR WHATSAPP →
+            </button>
+        </form>
+    </div>
+</section>
+<!-- =====================================================
+     FOOTER
+====================================================== -->
+<footer>
+    <div class="footer-logo">
+        VIBR<span>A</span>
+    </div>
+    <div class="footer-bottom">
+        MERCH · EVENTOS · EXPERIENCIAS
+        <br><br>
+        © 2026 VIBRA — Colombia
+    </div>
+</footer>
+<!-- =====================================================
+     JAVASCRIPT
+====================================================== -->
+<script>
+/* =========================================================
+   CONFIGURACIÓN WHATSAPP
+========================================================= */
+const WHATSAPP =
+    "573059098766";
+let precioSeleccionado =
+    89900;
+/* =========================================================
+   CARRUSEL DE EVENTOS
+========================================================= */
+let eventoActual = 0;
+const totalEventos = 10;
+const anchoEvento = 328;
+const eventsTrack =
+    document.getElementById(
+        "eventsTrack"
+    );
+const indicators =
+    document.querySelectorAll(
+        ".indicator"
+    );
+const currentEvent =
+    document.getElementById(
+        "currentEvent"
+    );
+function moverEventos(
+    direccion
+) {
+    eventoActual += direccion;
+    if (
+        eventoActual < 0
+    ) {
+        eventoActual =
+            totalEventos - 1;
+    }
+    if (
+        eventoActual >=
+        totalEventos
+    ) {
+        eventoActual = 0;
+    }
+    actualizarCarrusel();
+    reiniciarAutoCarrusel();
+}
+function irEvento(
+    numero
+) {
+    eventoActual =
+        numero;
+    actualizarCarrusel();
+    reiniciarAutoCarrusel();
+}
+function actualizarCarrusel() {
+    const desplazamiento =
+        eventoActual *
+        anchoEvento;
+    eventsTrack.style.transform =
+        `translateX(-${desplazamiento}px)`;
+    indicators.forEach(
+        (
+            indicator,
+            index
+        ) => {
+            indicator.classList.toggle(
+                "active",
+                index ===
+                eventoActual
+            );
+        }
+    );
+    currentEvent.textContent =
+        String(
+            eventoActual + 1
+        ).padStart(
+            2,
+            "0"
+        );
+}
+/* =========================================================
+   AUTO CARRUSEL
+========================================================= */
+let autoCarrusel;
+function iniciarAutoCarrusel() {
+    autoCarrusel =
+        setInterval(
+            () => {
+                eventoActual++;
+                if (
+                    eventoActual >=
+                    totalEventos
+                ) {
+                    eventoActual = 0;
+                }
+                actualizarCarrusel();
+            },
+            5000
+        );
+}
+function reiniciarAutoCarrusel() {
+    clearInterval(
+        autoCarrusel
+    );
+    iniciarAutoCarrusel();
+}
+iniciarAutoCarrusel();
+/* =========================================================
+   MOUSE DRAG
+========================================================= */
+let mouseInicio = 0;
+let mouseFin = 0;
+eventsTrack.addEventListener(
+    "mousedown",
+    function(e) {
+        mouseInicio =
+            e.clientX;
+    }
+);
+eventsTrack.addEventListener(
+    "mouseup",
+    function(e) {
+        mouseFin =
+            e.clientX;
+        const diferencia =
+            mouseInicio -
+            mouseFin;
+        if (
+            Math.abs(
+                diferencia
+            ) > 50
+        ) {
+            if (
+                diferencia > 0
+            ) {
+                moverEventos(1);
+            }
+            else {
+                moverEventos(-1);
+            }
+        }
+    }
+);
+/* =========================================================
+   TOUCH CELULAR
+========================================================= */
+let touchInicio = 0;
+let touchFin = 0;
+eventsTrack.addEventListener(
+    "touchstart",
+    function(e) {
+        touchInicio =
+            e.touches[0]
+            .clientX;
+    },
+    {
+        passive: true
+    }
+);
+eventsTrack.addEventListener(
+    "touchend",
+    function(e) {
+        touchFin =
+            e.changedTouches[0]
+            .clientX;
+        const diferencia =
+            touchInicio -
+            touchFin;
+        if (
+            Math.abs(
+                diferencia
+            ) > 50
+        ) {
+            if (
+                diferencia > 0
+            ) {
+                moverEventos(1);
+            }
+            else {
+                moverEventos(-1);
+            }
+        }
+    }
+);
+/* =========================================================
+   CARRUSEL DE PRODUCTOS (DROPS)
+========================================================= */
+let productoActual = 0;
+const totalProductos = 4;
+const anchoProducto = 310;
+const productsTrack =
+    document.getElementById(
+        "productsTrack"
+    );
+const productIndicators =
+    document.querySelectorAll(
+        "#productIndicators .indicator"
+    );
+const currentProduct =
+    document.getElementById(
+        "currentProduct"
+    );
+function moverProductos(
+    direccion
+) {
+    productoActual += direccion;
+    if (
+        productoActual < 0
+    ) {
+        productoActual =
+            totalProductos - 1;
+    }
+    if (
+        productoActual >=
+        totalProductos
+    ) {
+        productoActual = 0;
+    }
+    actualizarCarruselProductos();
+}
+function irProducto(
+    numero
+) {
+    productoActual =
+        numero;
+    actualizarCarruselProductos();
+}
+function actualizarCarruselProductos() {
+    const desplazamiento =
+        productoActual *
+        anchoProducto;
+    productsTrack.style.transform =
+        `translateX(-${desplazamiento}px)`;
+    productIndicators.forEach(
+        (
+            indicator,
+            index
+        ) => {
+            indicator.classList.toggle(
+                "active",
+                index ===
+                productoActual
+            );
+        }
+    );
+    currentProduct.textContent =
+        String(
+            productoActual + 1
+        ).padStart(
+            2,
+            "0"
+        );
+}
+/* =========================================================
+   ARRASTRAR PRODUCTOS (MOUSE)
+========================================================= */
+let productMouseInicio = 0;
+let productMouseFin = 0;
+productsTrack.addEventListener(
+    "mousedown",
+    function(e) {
+        productMouseInicio =
+            e.clientX;
+    }
+);
+productsTrack.addEventListener(
+    "mouseup",
+    function(e) {
+        productMouseFin =
+            e.clientX;
+        const diferencia =
+            productMouseInicio -
+            productMouseFin;
+        if (
+            Math.abs(
+                diferencia
+            ) > 50
+        ) {
+            if (
+                diferencia > 0
+            ) {
+                moverProductos(1);
+            }
+            else {
+                moverProductos(-1);
+            }
+        }
+    }
+);
+/* =========================================================
+   ARRASTRAR PRODUCTOS (TÁCTIL)
+========================================================= */
+let productTouchInicio = 0;
+let productTouchFin = 0;
+productsTrack.addEventListener(
+    "touchstart",
+    function(e) {
+        productTouchInicio =
+            e.touches[0]
+            .clientX;
+    },
+    {
+        passive: true
+    }
+);
+productsTrack.addEventListener(
+    "touchend",
+    function(e) {
+        productTouchFin =
+            e.changedTouches[0]
+            .clientX;
+        const diferencia =
+            productTouchInicio -
+            productTouchFin;
+        if (
+            Math.abs(
+                diferencia
+            ) > 50
+        ) {
+            if (
+                diferencia > 0
+            ) {
+                moverProductos(1);
+            }
+            else {
+                moverProductos(-1);
+            }
+        }
+    }
+);
+/* =========================================================
+   SCROLL COMPRA
+========================================================= */
+function scrollComprar() {
+    document
+        .getElementById(
+            "comprar"
+        )
+        .scrollIntoView({
+            behavior:
+                "smooth"
+        });
+}
+/* =========================================================
+   SELECCIONAR PRODUCTO
+========================================================= */
+function seleccionarProducto(
+    nombre,
+    precio
+) {
+    document
+        .getElementById(
+            "producto"
+        )
+        .value =
+            nombre;
+    precioSeleccionado =
+        precio;
+    scrollComprar();
+}
+/* =========================================================
+   FORMULARIO WHATSAPP
+========================================================= */
+document
+    .getElementById(
+        "orderForm"
+    )
+    .addEventListener(
+        "submit",
+        function(event) {
+            event.preventDefault();
+            const producto =
+                document
+                .getElementById(
+                    "producto"
+                )
+                .value;
+            const genero =
+                document
+                .getElementById(
+                    "genero"
+                )
+                .value;
+            const talla =
+                document
+                .getElementById(
+                    "talla"
+                )
+                .value;
+            const nombre =
+                document
+                .getElementById(
+                    "nombre"
+                )
+                .value;
+            const telefono =
+                document
+                .getElementById(
+                    "telefono"
+                )
+                .value;
+            const ciudad =
+                document
+                .getElementById(
+                    "ciudad"
+                )
+                .value;
+            const direccion =
+                document
+                .getElementById(
+                    "direccion"
+                )
+                .value;
+            const pago =
+                document
+                .querySelector(
+                    'input[name="pago"]:checked'
+                )
+                .value;
+            const precio =
+                precioSeleccionado
+                .toLocaleString(
+                    "es-CO"
+                );
+            const mensaje =
+                "🔥 NUEVO PEDIDO VIBRA 🔥\n\n" +
+                "👕 Producto: " +
+                producto +
+                "\n" +
+                "💰 Precio: $" +
+                precio +
+                "\n\n" +
+                "👤 Nombre: " +
+                nombre +
+                "\n" +
+                "📞 Teléfono: " +
+                telefono +
+                "\n" +
+                "👕 Tipo: " +
+                genero +
+                "\n" +
+                "📏 Talla: " +
+                talla +
+                "\n\n" +
+                "📍 Ciudad: " +
+                ciudad +
+                "\n" +
+                "🏠 Dirección: " +
+                direccion +
+                "\n\n" +
+                "💳 Método de pago: " +
+                pago;
+            const url =
+                "https://wa.me/" +
+                WHATSAPP +
+                "?text=" +
+                encodeURIComponent(
+                    mensaje
+                );
+            window.open(
+                url,
+                "_blank"
+            );
+        }
+    );
+/* =========================================================
+   🎶 SISTEMA DE LUCES DE CONCIERTO
+========================================================= */
+const canvas =
+    document.getElementById(
+        "constellationCanvas"
+    );
+const ctx =
+    canvas.getContext("2d");
+let width =
+    window.innerWidth;
+let height =
+    window.innerHeight;
+/*
+    Reducimos la cantidad de
+    elementos en móviles para
+    mejorar el rendimiento.
+*/
+const ES_MOVIL =
+    window.innerWidth < 650;
+/*
+    Paleta de luces de
+    escenario / discoteca.
+*/
+const LUCES = [
+    "d7ff00",
+    "ff2e9a",
+    "24e5ff",
+    "ff7a29",
+    "a64dff"
+];
+let beams = [];
+let particles = [];
+let hazeBlobs = [];
+let crowd = [];
+let strobe = 0;
+let tiempo = 0;
+/* =========================================================
+   MOUSE
+========================================================= */
+const mouse = {
+    x: null,
+    y: null,
+    active: false
+};
+window.addEventListener(
+    "mousemove",
+    function(e) {
+        mouse.x =
+            e.clientX;
+        mouse.y =
+            e.clientY;
+        mouse.active =
+            true;
+    }
+);
+window.addEventListener(
+    "mouseleave",
+    function() {
+        mouse.active =
+            false;
+    }
+);
+/* =========================================================
+   CREAR CANVAS
+========================================================= */
+function resizeCanvas() {
+    width =
+        window.innerWidth;
+    height =
+        window.innerHeight;
+    const pixelRatio =
+        Math.min(
+            window.devicePixelRatio || 1,
+            2
+        );
+    canvas.width =
+        width *
+        pixelRatio;
+    canvas.height =
+        height *
+        pixelRatio;
+    canvas.style.width =
+        width + "px";
+    canvas.style.height =
+        height + "px";
+    ctx.setTransform(
+        pixelRatio,
+        0,
+        0,
+        pixelRatio,
+        0,
+        0
+    );
+    crearReflectores();
+    crearParticulas();
+    crearHumo();
+    crearMultitud();
+}
+window.addEventListener(
+    "resize",
+    resizeCanvas
+);
+/* =========================================================
+   REFLECTORES / LUCES DE ESCENARIO
+========================================================= */
+function crearReflectores() {
+    const cantidad =
+        ES_MOVIL ? 4 : 7;
+    beams = [];
+    for (
+        let i = 0;
+        i < cantidad;
+        i++
+    ) {
+        beams.push({
+            origenX:
+                (
+                    width /
+                    (cantidad - 1)
+                ) * i,
+            anguloBase:
+                Math.random() *
+                .5
+                - .25,
+            amplitud:
+                Math.random() *
+                .55
+                + .35,
+            velocidad:
+                Math.random() *
+                .35
+                + .18,
+            fase:
+                Math.random() *
+                Math.PI *
+                2,
+            color:
+                LUCES[
+                    i %
+                    LUCES.length
+                ],
+            largo:
+                height *
+                1.3,
+            ancho:
+                Math.random() *
+                .13
+                + .15,
+            intensidad:
+                Math.random() *
+                .25
+                + .8
+        });
+    }
+}
+function dibujarReflectores() {
+    ctx.save();
+    ctx.globalCompositeOperation =
+        "lighter";
+    beams.forEach(
+        (beam, i) => {
+            let angulo =
+                beam.anguloBase
+                +
+                Math.sin(
+                    tiempo *
+                    beam.velocidad
+                    +
+                    beam.fase
+                ) *
+                beam.amplitud
+                +
+                Math.PI /
+                2;
+            /*
+               El reflector del
+               centro sigue muy
+               levemente al mouse.
+            */
+            if (
+                mouse.active
+                &&
+                i ===
+                Math.floor(
+                    beams.length / 2
+                )
+            ) {
+                const objetivo =
+                    Math.atan2(
+                        mouse.y -
+                        0,
+                        mouse.x -
+                        beam.origenX
+                    );
+                angulo +=
+                    (
+                        objetivo -
+                        angulo
+                    ) *
+                    .04;
+            }
+            const anchoConico =
+                beam.ancho;
+            const x1 =
+                beam.origenX
+                +
+                Math.cos(
+                    angulo -
+                    anchoConico
+                ) *
+                beam.largo;
+            const y1 =
+                Math.sin(
+                    angulo -
+                    anchoConico
+                ) *
+                beam.largo;
+            const x2 =
+                beam.origenX
+                +
+                Math.cos(
+                    angulo +
+                    anchoConico
+                ) *
+                beam.largo;
+            const y2 =
+                Math.sin(
+                    angulo +
+                    anchoConico
+                ) *
+                beam.largo;
+            const grad =
+                ctx.createLinearGradient(
+                    beam.origenX,
+                    0,
+                    beam.origenX
+                    +
+                    Math.cos(
+                        angulo
+                    ) *
+                    beam.largo,
+                    Math.sin(
+                        angulo
+                    ) *
+                    beam.largo
+                );
+            grad.addColorStop(
+                0,
+                `rgba(${hexRgb(
+                    beam.color
+                )},${
+                    .78 *
+                    beam.intensidad
+                })`
+            );
+            grad.addColorStop(
+                .3,
+                `rgba(${hexRgb(
+                    beam.color
+                )},${
+                    .4 *
+                    beam.intensidad
+                })`
+            );
+            grad.addColorStop(
+                .65,
+                `rgba(${hexRgb(
+                    beam.color
+                )},${
+                    .16 *
+                    beam.intensidad
+                })`
+            );
+            grad.addColorStop(
+                1,
+                `rgba(${hexRgb(
+                    beam.color
+                )},0)`
+            );
+            ctx.beginPath();
+            ctx.moveTo(
+                beam.origenX,
+                0
+            );
+            ctx.lineTo(
+                x1,
+                y1
+            );
+            ctx.lineTo(
+                x2,
+                y2
+            );
+            ctx.closePath();
+            ctx.fillStyle =
+                grad;
+            ctx.fill();
+            /*
+               Punto brillante de
+               origen del reflector.
+            */
+            const origen =
+                ctx.createRadialGradient(
+                    beam.origenX,
+                    0,
+                    0,
+                    beam.origenX,
+                    0,
+                    46
+                );
+            origen.addColorStop(
+                0,
+                "rgba(255,255,255,1)"
+            );
+            origen.addColorStop(
+                .18,
+                `rgba(${hexRgb(
+                    beam.color
+                )},1)`
+            );
+            origen.addColorStop(
+                1,
+                `rgba(${hexRgb(
+                    beam.color
+                )},0)`
+            );
+            ctx.fillStyle =
+                origen;
+            ctx.beginPath();
+            ctx.arc(
+                beam.origenX,
+                0,
+                46,
+                0,
+                Math.PI * 2
+            );
+            ctx.fill();
+        }
+    );
+    ctx.restore();
+}
+/*
+    Convierte un color hex
+    (sin '#') a "r,g,b".
+*/
+function hexRgb(
+    hex
+) {
+    const r =
+        parseInt(
+            hex.substring(
+                0,
+                2
+            ),
+            16
+        );
+    const g =
+        parseInt(
+            hex.substring(
+                2,
+                4
+            ),
+            16
+        );
+    const b =
+        parseInt(
+            hex.substring(
+                4,
+                6
+            ),
+            16
+        );
+    return (
+        r + "," + g + "," + b
+    );
+}
+/* =========================================================
+   HUMO / NEBLINA DE ESCENARIO
+========================================================= */
+function crearHumo() {
+    const cantidad =
+        ES_MOVIL ? 2 : 4;
+    hazeBlobs = [];
+    for (
+        let i = 0;
+        i < cantidad;
+        i++
+    ) {
+        hazeBlobs.push({
+            x:
+                Math.random() *
+                width,
+            y:
+                height *
+                (
+                    .45
+                    +
+                    Math.random() *
+                    .5
+                ),
+            radius:
+                Math.random() *
+                160
+                + 160,
+            vx:
+                (
+                    Math.random()
+                    - .5
+                ) * .06,
+            vy:
+                (
+                    Math.random()
+                    - .5
+                ) * .03
+        });
+    }
+}
+function dibujarHumo() {
+    hazeBlobs.forEach(
+        blob => {
+            blob.x +=
+                blob.vx;
+            blob.y +=
+                blob.vy;
+            const margen =
+                blob.radius;
+            if (
+                blob.x <
+                -margen
+            ) blob.x =
+                width +
+                margen;
+            if (
+                blob.x >
+                width +
+                margen
+            ) blob.x =
+                -margen;
+            if (
+                blob.y <
+                height * .3
+            ) blob.y =
+                height * .3;
+            if (
+                blob.y >
+                height +
+                margen
+            ) blob.y =
+                height -
+                margen;
+            const grad =
+                ctx.createRadialGradient(
+                    blob.x,
+                    blob.y,
+                    0,
+                    blob.x,
+                    blob.y,
+                    blob.radius
+                );
+            grad.addColorStop(
+                0,
+                "rgba(190,200,230,.09)"
+            );
+            grad.addColorStop(
+                1,
+                "rgba(190,200,230,0)"
+            );
+            ctx.fillStyle =
+                grad;
+            ctx.beginPath();
+            ctx.arc(
+                blob.x,
+                blob.y,
+                blob.radius,
+                0,
+                Math.PI * 2
+            );
+            ctx.fill();
+        }
+    );
+}
+/* =========================================================
+   PARTÍCULAS DE LUZ (CONFETI / BRILLOS)
+========================================================= */
+function crearParticulas() {
+    const cantidad =
+        ES_MOVIL ? 45 : 90;
+    particles = [];
+    for (
+        let i = 0;
+        i < cantidad;
+        i++
+    ) {
+        particles.push(
+            nuevaParticula(
+                Math.random() *
+                height
+            )
+        );
+    }
+}
+function nuevaParticula(
+    y
+) {
+    return {
+        x:
+            Math.random() *
+            width,
+        y:
+            y,
+        radius:
+            Math.random() *
+            2
+            + .8,
+        vy:
+            -(
+                Math.random() *
+                .5
+                + .15
+            ),
+        vx:
+            (
+                Math.random()
+                - .5
+            ) * .3,
+        color:
+            LUCES[
+                Math.floor(
+                    Math.random() *
+                    LUCES.length
+                )
+            ],
+        twinkle:
+            Math.random() *
+            Math.PI *
+            2,
+        speed:
+            Math.random() *
+            .05
+            + .02
+    };
+}
+function dibujarParticulas() {
+    ctx.save();
+    ctx.globalCompositeOperation =
+        "lighter";
+    particles.forEach(
+        (p, i) => {
+            p.x += p.vx;
+            p.y += p.vy;
+            p.twinkle +=
+                p.speed;
+            if (
+                p.y < -10
+            ) {
+                particles[i] =
+                    nuevaParticula(
+                        height +
+                        10
+                    );
+                return;
+            }
+            if (
+                p.x < -10
+            ) p.x =
+                width + 10;
+            if (
+                p.x >
+                width + 10
+            ) p.x = -10;
+            const alpha =
+                .6
+                +
+                Math.sin(
+                    p.twinkle
+                ) *
+                .4;
+            const a =
+                Math.max(
+                    alpha,
+                    0
+                );
+            /*
+               Halo brillante
+               alrededor de
+               cada partícula.
+            */
+            const halo =
+                ctx.createRadialGradient(
+                    p.x,
+                    p.y,
+                    0,
+                    p.x,
+                    p.y,
+                    p.radius * 6
+                );
+            halo.addColorStop(
+                0,
+                `rgba(${hexRgb(
+                    p.color
+                )},${a * .55})`
+            );
+            halo.addColorStop(
+                1,
+                `rgba(${hexRgb(
+                    p.color
+                )},0)`
+            );
+            ctx.fillStyle =
+                halo;
+            ctx.beginPath();
+            ctx.arc(
+                p.x,
+                p.y,
+                p.radius * 6,
+                0,
+                Math.PI * 2
+            );
+            ctx.fill();
+            ctx.fillStyle =
+                `rgba(255,255,255,${a})`;
+            ctx.beginPath();
+            ctx.arc(
+                p.x,
+                p.y,
+                p.radius,
+                0,
+                Math.PI * 2
+            );
+            ctx.fill();
+        }
+    );
+    ctx.restore();
+}
+/* =========================================================
+   MULTITUD SALTANDO
+========================================================= */
+function crearMultitud() {
+    const espaciado =
+        ES_MOVIL ? 46 : 42;
+    const cantidad =
+        Math.ceil(
+            width /
+            espaciado
+        ) + 2;
+    crowd = [];
+    for (
+        let i = 0;
+        i < cantidad;
+        i++
+    ) {
+        crowd.push({
+            x:
+                i *
+                espaciado
+                +
+                (
+                    Math.random()
+                    - .5
+                ) * 14,
+            escala:
+                Math.random() *
+                .3
+                + .78,
+            fase:
+                Math.random() *
+                Math.PI *
+                2,
+            velocidad:
+                Math.random() *
+                .05
+                + .05,
+            amplitud:
+                Math.random() *
+                8
+                + 10
+        });
+    }
+}
+function dibujarMultitud() {
+    const base =
+        height - 6;
+    /*
+       Contraluz de escenario:
+       una franja de luz cálida
+       justo detrás del público
+       para que se vea como
+       siluetas a contraluz.
+    */
+    const colorFondo =
+        LUCES[
+            Math.floor(
+                tiempo *
+                .12
+            ) %
+            LUCES.length
+        ];
+    const contraluz =
+        ctx.createLinearGradient(
+            0,
+            base - 170,
+            0,
+            base + 20
+        );
+    contraluz.addColorStop(
+        0,
+        `rgba(${hexRgb(
+            colorFondo
+        )},0)`
+    );
+    contraluz.addColorStop(
+        .7,
+        `rgba(${hexRgb(
+            colorFondo
+        )},.45)`
+    );
+    contraluz.addColorStop(
+        1,
+        `rgba(${hexRgb(
+            colorFondo
+        )},.75)`
+    );
+    ctx.fillStyle =
+        contraluz;
+    ctx.fillRect(
+        0,
+        base - 170,
+        width,
+        190
+    );
+    ctx.fillStyle =
+        "rgba(2,2,5,.95)";
+    crowd.forEach(
+        persona => {
+            const salto =
+                Math.abs(
+                    Math.sin(
+                        tiempo *
+                        persona.velocidad *
+                        6
+                        +
+                        persona.fase
+                    )
+                ) *
+                persona.amplitud;
+            const y =
+                base -
+                salto;
+            const s =
+                persona.escala;
+            ctx.save();
+            ctx.translate(
+                persona.x,
+                y
+            );
+            ctx.scale(
+                s,
+                s
+            );
+            /*
+               Brazos levantados
+            */
+            ctx.strokeStyle =
+                "rgba(2,2,5,.95)";
+            ctx.lineWidth = 4;
+            ctx.lineCap =
+                "round";
+            ctx.beginPath();
+            ctx.moveTo(
+                -7,
+                -30
+            );
+            ctx.lineTo(
+                -14,
+                -54
+            );
+            ctx.moveTo(
+                7,
+                -30
+            );
+            ctx.lineTo(
+                14,
+                -54
+            );
+            ctx.stroke();
+            /*
+               Cuerpo
+            */
+            ctx.beginPath();
+            ctx.moveTo(
+                -11,
+                0
+            );
+            ctx.lineTo(
+                -9,
+                -34
+            );
+            ctx.quadraticCurveTo(
+                0,
+                -40,
+                9,
+                -34
+            );
+            ctx.lineTo(
+                11,
+                0
+            );
+            ctx.closePath();
+            ctx.fill();
+            /*
+               Cabeza
+            */
+            ctx.beginPath();
+            ctx.arc(
+                0,
+                -46,
+                8,
+                0,
+                Math.PI * 2
+            );
+            ctx.fill();
+            ctx.restore();
+        }
+    );
+    /*
+       Suelo del escenario
+    */
+    const pisoGrad =
+        ctx.createLinearGradient(
+            0,
+            height - 90,
+            0,
+            height
+        );
+    pisoGrad.addColorStop(
+        0,
+        "rgba(3,4,10,0)"
+    );
+    pisoGrad.addColorStop(
+        1,
+        "rgba(3,4,10,.95)"
+    );
+    ctx.fillStyle =
+        pisoGrad;
+    ctx.fillRect(
+        0,
+        height - 90,
+        width,
+        90
+    );
+}
+/* =========================================================
+   FLASH DE ESTROBO
+========================================================= */
+function dibujarEstrobo() {
+    if (
+        strobe <= 0
+        &&
+        Math.random() <
+        .0035
+    ) {
+        strobe = 1;
+    }
+    if (
+        strobe > 0
+    ) {
+        ctx.fillStyle =
+            `rgba(255,255,255,${
+                strobe * .14
+            })`;
+        ctx.fillRect(
+            0,
+            0,
+            width,
+            height
+        );
+        strobe -=
+            .1;
+    }
+}
+/* =========================================================
+   DIBUJAR ESCENA
+========================================================= */
+function dibujarEscena() {
+    tiempo += .016;
+    ctx.clearRect(
+        0,
+        0,
+        width,
+        height
+    );
+    /*
+       Fondo de escenario
+    */
+    const fondo =
+        ctx.createLinearGradient(
+            0,
+            0,
+            0,
+            height
+        );
+    fondo.addColorStop(
+        0,
+        "#0a0714"
+    );
+    fondo.addColorStop(
+        .55,
+        "#050308"
+    );
+    fondo.addColorStop(
+        1,
+        "#010102"
+    );
+    ctx.fillStyle =
+        fondo;
+    ctx.fillRect(
+        0,
+        0,
+        width,
+        height
+    );
+    dibujarReflectores();
+    dibujarHumo();
+    dibujarParticulas();
+    dibujarMultitud();
+    dibujarEstrobo();
+    requestAnimationFrame(
+        dibujarEscena
+    );
+}
+/* =========================================================
+   INICIAR ESCENA
+========================================================= */
+resizeCanvas();
+dibujarEscena();
+
+</script>
+</body>
+</html>
