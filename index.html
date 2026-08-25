@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Permanent+Marker&family=DM+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
@@ -469,6 +470,590 @@ body { background:#03040a; font-family:"DM Sans", sans-serif; color:#fff; overfl
 }
 .size-table td { padding:9px 6px; border-bottom:1px solid rgba(255,255,255,.06); color:#ddd; }
 .size-modal-note { margin-top:16px; color:#999; font-size:12px; line-height:1.6; }
+
+/* ============================================================
+   VIBRA — EXPERIENCIA MOBILE
+   Optimización específica para teléfonos
+   ============================================================ */
+
+html {
+    width: 100%;
+    overflow-x: hidden;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    min-width: 0;
+    width: 100%;
+    overflow-x: hidden;
+    overscroll-behavior-x: none;
+}
+
+button, a, input, textarea {
+    -webkit-tap-highlight-color: transparent;
+}
+
+@media (max-width: 600px) {
+
+    /* ---------- ESCENARIO ---------- */
+    .stage-lights {
+        position: fixed;
+        opacity: .72;
+    }
+
+    .beam {
+        width: 90px;
+        filter: blur(8px);
+    }
+
+    /* ---------- CONTENEDOR PRINCIPAL ---------- */
+    .collection {
+        padding: 78px 14px 65px;
+    }
+
+    /* ---------- LOGO ---------- */
+    .brand-logo {
+        margin-bottom: 20px;
+        padding: 0 52px 0 8px;
+    }
+
+    .brand-logo span.logo-text {
+        font-size: clamp(43px, 15vw, 58px);
+        line-height: 1;
+    }
+
+    /* ---------- CINTA ---------- */
+    .marquee {
+        width: 120%;
+        margin-left: -10%;
+        margin-bottom: 27px;
+        padding: 10px 0;
+        transform: rotate(-2deg);
+    }
+
+    .marquee-track {
+        font-size: 20px;
+        letter-spacing: 1.2px;
+    }
+
+    /* ---------- TÍTULO ---------- */
+    .collection-header {
+        margin: 0 2px 18px;
+    }
+
+    .collection-header h2 {
+        font-size: clamp(42px, 14vw, 58px);
+        line-height: .82;
+    }
+
+    /* ---------- MATRIZ DE PRODUCTOS ---------- */
+    .matrix {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 18px 10px;
+        width: 100%;
+    }
+
+    .prod-card {
+        min-width: 0;
+    }
+
+    .prod-image-wrap {
+        aspect-ratio: 3 / 4.15;
+        border-radius: 11px;
+        margin-bottom: 8px;
+    }
+
+    .prod-image {
+        object-fit: cover;
+    }
+
+    .prod-card:hover .prod-image-wrap {
+        transform: none;
+        box-shadow: none;
+    }
+
+    .prod-card:hover .prod-image {
+        transform: none;
+    }
+
+    .prod-name {
+        font-size: 12px;
+        line-height: 1.2;
+        margin-bottom: 3px;
+    }
+
+    .prod-price {
+        font-size: 12px;
+        margin-bottom: 8px;
+    }
+
+    /* ---------- SELECTOR DE COLORES ---------- */
+    .colors {
+        bottom: 7px;
+        right: 7px;
+        gap: 5px;
+        padding: 5px 7px;
+    }
+
+    .colors .colors-text {
+        display: none;
+    }
+
+    .color-btn {
+        width: 21px;
+        height: 21px;
+    }
+
+    /* ---------- TALLAS ---------- */
+    .sizes-row {
+        align-items: flex-start;
+        gap: 7px;
+    }
+
+    .sizes {
+        gap: 4px;
+    }
+
+    .size-btn {
+        width: 30px;
+        height: 30px;
+        min-width: 30px;
+        border-radius: 6px;
+        font-size: 10px;
+    }
+
+    .size-guide-link {
+        font-size: 9px;
+        padding-top: 8px;
+    }
+
+    /* ---------- CANTIDAD / AGREGAR ---------- */
+    .qty-row {
+        gap: 6px;
+        margin-top: 8px;
+    }
+
+    .qty-selector {
+        flex-shrink: 0;
+    }
+
+    .qty-btn,
+    .qty-value {
+        width: 30px;
+        height: 30px;
+    }
+
+    .add-btn {
+        height: 30px;
+        font-size: 10px;
+        padding: 0 4px;
+    }
+
+    /* ---------- CREA TU CAMISETA ---------- */
+    .custom-card {
+        grid-column: 1 / -1;
+        padding: 13px;
+        border-radius: 13px;
+        margin-bottom: 4px;
+    }
+
+    .custom-title {
+        font-size: 21px;
+        margin-bottom: 11px;
+    }
+
+    .custom-shirt-wrap {
+        aspect-ratio: 1 / 1.08;
+        max-height: 430px;
+    }
+
+    .custom-colors {
+        margin-bottom: 9px;
+    }
+
+    .upload-btn {
+        min-height: 44px;
+        padding: 12px;
+        margin-bottom: 11px;
+    }
+
+    .custom-card .size-btn {
+        width: 34px;
+        height: 34px;
+    }
+
+    .custom-card .qty-btn,
+    .custom-card .qty-value {
+        width: 34px;
+        height: 34px;
+    }
+
+    .custom-card .add-btn {
+        height: 34px;
+        font-size: 11px;
+    }
+
+    /* ---------- CARRITO ---------- */
+    .cart-fab {
+        top: calc(10px + env(safe-area-inset-top));
+        right: 10px;
+        padding: 9px 11px;
+        min-height: 42px;
+        border-radius: 24px;
+        font-size: 11px;
+        gap: 6px;
+        z-index: 250;
+    }
+
+    .cart-count {
+        width: 21px;
+        height: 21px;
+        font-size: 10px;
+    }
+
+    .cart-panel {
+        top: auto;
+        right: 0;
+        bottom: -100%;
+        width: 100%;
+        height: min(88dvh, 760px);
+        max-height: 88dvh;
+        padding: 20px 16px calc(20px + env(safe-area-inset-bottom));
+        border-left: 0;
+        border-top: 1px solid rgba(255,255,255,.12);
+        border-radius: 18px 18px 0 0;
+        transition: bottom .35s ease;
+    }
+
+    .cart-panel.open {
+        right: 0;
+        bottom: 0;
+    }
+
+    .cart-panel h3 {
+        font-size: 30px;
+        padding-right: 35px;
+        margin-bottom: 15px;
+    }
+
+    .cart-close {
+        top: 16px;
+        right: 16px;
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background: rgba(255,255,255,.06);
+        font-size: 20px;
+    }
+
+    .cart-item {
+        gap: 10px;
+        padding: 12px 0;
+    }
+
+    .cart-item img {
+        width: 58px;
+        height: 73px;
+        flex-shrink: 0;
+    }
+
+    .cart-item-info .name {
+        font-size: 12px;
+    }
+
+    .cart-item-info .meta,
+    .cart-item-info .price {
+        font-size: 11px;
+    }
+
+    .cart-total {
+        margin-top: 15px;
+        padding-top: 13px;
+    }
+
+    .cart-checkout {
+        min-height: 48px;
+        font-size: 13px;
+        margin-top: 12px;
+        border-radius: 9px;
+    }
+
+    /* ---------- CHECKOUT ---------- */
+    .checkout-form h3,
+    .payment-step h3 {
+        font-size: 29px;
+        line-height: 1;
+        padding-right: 30px;
+    }
+
+    .form-field {
+        margin-bottom: 11px;
+    }
+
+    .form-field label {
+        font-size: 10px;
+        margin-bottom: 5px;
+    }
+
+    .form-field input,
+    .form-field textarea {
+        min-height: 45px;
+        padding: 12px;
+        font-size: 16px; /* evita zoom automático en iOS */
+        border-radius: 9px;
+    }
+
+    .form-field textarea {
+        height: 75px;
+    }
+
+    .checkout-summary {
+        font-size: 11px;
+        line-height: 1.5;
+    }
+
+    .whatsapp-btn {
+        min-height: 48px;
+        border-radius: 9px;
+        font-size: 12px;
+    }
+
+    /* ---------- PAGOS ---------- */
+    .payment-methods {
+        gap: 8px;
+    }
+
+    .pay-method-btn {
+        min-height: 52px;
+        padding: 10px 6px;
+        border-radius: 9px;
+        font-size: 12px;
+    }
+
+    .pay-details {
+        padding: 13px;
+        margin-bottom: 12px;
+    }
+
+    .pay-details .pay-value {
+        font-size: 23px;
+        flex-wrap: wrap;
+        gap: 7px;
+    }
+
+    .copy-btn {
+        min-height: 30px;
+        padding: 5px 9px;
+    }
+
+    /* ---------- WHATSAPP ---------- */
+    .whatsapp-fab {
+        width: 52px;
+        height: 52px;
+        right: 13px;
+        bottom: calc(13px + env(safe-area-inset-bottom));
+    }
+
+    .whatsapp-fab svg {
+        width: 25px;
+        height: 25px;
+    }
+
+    /* ---------- LIGHTBOX ---------- */
+    .lightbox-overlay {
+        padding: 18px 14px;
+        gap: 15px;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .lightbox-overlay img {
+        width: min(92vw, 480px);
+        max-width: 92vw;
+        max-height: 62vh;
+        object-fit: contain;
+        border-radius: 10px;
+    }
+
+    .lightbox-info {
+        width: min(92vw, 480px);
+        max-width: 92vw;
+        background: rgba(10,11,18,.94);
+        border: 1px solid rgba(255,255,255,.08);
+        border-radius: 12px;
+        padding: 14px;
+    }
+
+    .lightbox-info h4 {
+        font-size: 22px;
+        margin-bottom: 10px;
+    }
+
+    .lightbox-info li {
+        font-size: 12px;
+        margin-bottom: 7px;
+    }
+
+    .lightbox-close {
+        top: calc(12px + env(safe-area-inset-top));
+        right: 14px;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: rgba(0,0,0,.5);
+        font-size: 25px;
+    }
+
+    /* ---------- GUÍA DE TALLAS ---------- */
+    .size-modal-overlay {
+        padding: 14px;
+    }
+
+    .size-modal {
+        width: 100%;
+        max-width: 100%;
+        padding: 22px 16px;
+        border-radius: 15px;
+        max-height: 88dvh;
+        overflow-y: auto;
+    }
+
+    .size-modal h3 {
+        font-size: 27px;
+        padding-right: 28px;
+    }
+
+    .size-modal .size-modal-sub {
+        font-size: 11px;
+        line-height: 1.4;
+    }
+
+    .size-table {
+        font-size: 12px;
+    }
+
+    .size-table th,
+    .size-table td {
+        padding: 9px 5px;
+    }
+
+    .size-modal-note {
+        font-size: 11px;
+        line-height: 1.5;
+    }
+
+    /* ---------- FOOTER ---------- */
+    .site-footer {
+        padding: 35px 16px 22px;
+        margin-top: 10px;
+    }
+
+    .footer-top {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 25px 18px;
+        margin-bottom: 25px;
+    }
+
+    .footer-brand {
+        grid-column: 1 / -1;
+    }
+
+    .footer-brand .logo-text {
+        font-size: 29px;
+    }
+
+    .footer-brand p {
+        font-size: 11px;
+        line-height: 1.5;
+        max-width: 100%;
+    }
+
+    .footer-col h5 {
+        font-size: 10px;
+        margin-bottom: 11px;
+    }
+
+    .footer-col li {
+        margin-bottom: 7px;
+    }
+
+    .footer-col a {
+        font-size: 11px;
+    }
+
+    .footer-social {
+        gap: 7px;
+    }
+
+    .footer-social a {
+        width: 34px;
+        height: 34px;
+    }
+
+    .footer-bottom {
+        gap: 7px;
+        line-height: 1.4;
+        font-size: 10px;
+    }
+}
+
+/* Teléfonos muy pequeños */
+@media (max-width: 380px) {
+
+    .collection {
+        padding-left: 11px;
+        padding-right: 11px;
+    }
+
+    .matrix {
+        gap: 16px 8px;
+    }
+
+    .prod-name,
+    .prod-price {
+        font-size: 11px;
+    }
+
+    .size-btn {
+        width: 27px;
+        min-width: 27px;
+        height: 27px;
+    }
+
+    .qty-btn,
+    .qty-value {
+        width: 27px;
+        height: 27px;
+    }
+
+    .add-btn {
+        font-size: 9px;
+    }
+
+    .cart-fab {
+        font-size: 10px;
+        padding: 8px 9px;
+    }
+
+    .cart-fab .cart-count {
+        width: 19px;
+        height: 19px;
+    }
+}
+
+/* Evita problemas con pantallas horizontales */
+@media (max-height: 500px) and (orientation: landscape) {
+    .cart-panel {
+        height: 94dvh;
+        max-height: 94dvh;
+    }
+
+    .lightbox-overlay img {
+        max-height: 78vh;
+    }
+}
+
 </style>
 </head>
 <body>
